@@ -120,7 +120,7 @@ class TelescopeModeling(object):
             self.logging = logging
             stats = self._simulate()
             for key in finalStats.keys():
-                finalStats[key] += stats[key] / n
+                finalStats[key] += stats[key] / self.n
         return finalStats
 
 if __name__ == "__main__":
@@ -129,7 +129,9 @@ if __name__ == "__main__":
     s = 1.1
     a = 1.0
     simulation = TelescopeModeling(n, s, a)
-    stats = simulation.simulate(logging=False)
+    stats = simulation.simulate(logging=True)
     print("=============================  main stats  =============================")
     for key, value in stats.items():
-        print(key, '=', value)
+        mins = int(value)
+        seconds = str((value - mins) * 60)[0:2]
+        print(key, '=', value, f"({mins}::{seconds})")
